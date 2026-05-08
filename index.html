@@ -127,10 +127,22 @@ body{font-family:var(--sans);background:var(--bg);color:var(--tx);-webkit-font-s
 .stat-lab{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx30)}
 
 .ts{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx30);margin-left:8px;font-weight:500}
+
+.lang-toggle{position:absolute;top:32px;right:32px;display:flex;gap:4px;font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;z-index:10}
+.lang-toggle span,.lang-toggle a{padding:5px 11px;border:1px solid var(--bd);transition:all .15s var(--ease-out)}
+.lang-toggle span{background:var(--inv-bg);color:var(--inv-tx);border-color:var(--inv-bg);font-weight:600}
+.lang-toggle a{color:var(--tx50);text-decoration:none;background:var(--card)}
+.lang-toggle a:hover{color:var(--tx);border-color:var(--bd-hover);background:var(--card-hover)}
+@media(max-width:640px){.lang-toggle{top:16px;right:16px}}
 </style>
 </head>
 <body>
-<div class="w">
+<div class="w" style="position:relative">
+
+<div class="lang-toggle">
+  <span>FR</span>
+  <a href="en/" hreflang="en" aria-label="Read in English">EN</a>
+</div>
 
 <div class="hero">
   <div class="hero-label">Compte rendu interne · Tom → Quentin · 8 mai 2026</div>
