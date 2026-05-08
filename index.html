@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UBLOT — Compte rendu pour Quentin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F5F3;--bg2:#EDEDE8;--bg3:#E4E4DD;--card:#FFFFFF;--card-hover:#FAFAF7;
+  --tx:#0F0F12;--tx90:rgba(15,15,18,.88);--tx70:rgba(15,15,18,.65);--tx50:rgba(15,15,18,.45);
+  --tx30:rgba(15,15,18,.25);--tx12:rgba(15,15,18,.10);--tx06:rgba(15,15,18,.04);
+  --bd:rgba(15,15,18,.08);--bd-hover:rgba(15,15,18,.16);
+  --shadow:0 32px 80px rgba(15,15,18,.06);--shadow-sm:0 8px 40px rgba(15,15,18,.04);
+  --acid:#D4F02A;--acid-dim:rgba(212,240,42,.12);
+  --inv-bg:#0F0F12;--inv-tx:#F5F5F3;
+  --green:#22c55e;--green-dim:rgba(34,197,94,.08);
+  --blue:#2563eb;--blue-dim:rgba(37,99,235,.08);
+  --purple:#7c3aed;--purple-dim:rgba(124,58,237,.08);
+  --orange:#d97706;--orange-dim:rgba(217,119,6,.08);
+  --danger:#ef4444;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --tr:450ms cubic-bezier(.4,0,.2,1);--ease-out:cubic-bezier(.25,.46,.45,.94);
+  --radius:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+.w{max-width:960px;margin:0 auto;padding:0 32px}
+@media(min-width:768px){.w{padding:0 48px}}
+@media(min-width:1100px){.w{padding:0}}
+
+@keyframes heroIn{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.reveal.v{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+.hero{padding:100px 0 60px;animation:heroIn .8s var(--ease-out) both}
+.hero-label{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--tx30);margin-bottom:28px;display:flex;align-items:center;gap:12px}
+.hero-label::before{content:'';width:32px;height:1px;background:var(--inv-bg)}
+.hero h1{font-weight:700;font-size:clamp(36px,5.5vw,58px);line-height:1.05;letter-spacing:-.04em;margin-bottom:24px;max-width:800px}
+.hero h1 .serif{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.02em}
+.hero h1 .hl{position:relative;display:inline-block}
+.hero h1 .hl::after{content:'';position:absolute;bottom:clamp(2px,.5vw,6px);left:-3px;right:-3px;height:clamp(6px,1vw,12px);background:var(--acid);opacity:.5;z-index:-1}
+.hero-sub{font-weight:300;font-size:clamp(16px,1.6vw,19px);line-height:1.7;color:var(--tx50);max-width:660px}
+.hero-sub strong{font-weight:500;color:var(--tx90)}
+
+.meta-bar{display:flex;gap:32px;padding:24px 0;margin-bottom:56px;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.meta-item{display:flex;flex-direction:column;gap:2px}
+.meta-label{font-family:var(--mono);font-size:9px;font-weight:500;color:var(--tx30);text-transform:uppercase;letter-spacing:.12em}
+.meta-value{font-size:14px;font-weight:600;letter-spacing:-.01em}
+
+.section{margin-bottom:64px}
+.section-header{margin-bottom:32px}
+.section-label{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--tx30);text-transform:uppercase;letter-spacing:.15em;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.section-label::before{content:'';width:20px;height:1px;background:var(--tx30)}
+.section-title{font-size:clamp(24px,3vw,32px);font-weight:700;letter-spacing:-.03em;margin-bottom:8px}
+.section-title .serif{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.02em}
+.section-sub{font-size:15px;color:var(--tx50);max-width:640px;line-height:1.65}
+
+.body p{font-size:15px;color:var(--tx70);line-height:1.75;margin-bottom:14px;max-width:680px}
+.body p strong{color:var(--tx);font-weight:600}
+.body code{font-family:var(--mono);font-size:13px;background:var(--card);padding:2px 7px;border-radius:4px;border:1px solid var(--bd);color:var(--tx)}
+.body ul{list-style:none;margin:6px 0 18px 0;max-width:680px}
+.body ul li{font-size:14.5px;color:var(--tx70);line-height:1.65;padding:6px 0 6px 22px;position:relative}
+.body ul li::before{content:'';position:absolute;left:0;top:14px;width:10px;height:1px;background:var(--tx30)}
+.body ul li strong{color:var(--tx);font-weight:600}
+.body ul li code{font-family:var(--mono);font-size:12.5px;background:var(--card);padding:1px 6px;border-radius:4px;border:1px solid var(--bd);color:var(--tx)}
+
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+@media(max-width:700px){.twocol{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:24px 24px 20px;box-shadow:var(--shadow-sm);transition:all .25s var(--ease-out)}
+.card:hover{border-color:var(--bd-hover);transform:translateY(-2px);box-shadow:var(--shadow)}
+.card-lab{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--tx30);text-transform:uppercase;margin-bottom:8px;display:inline-block}
+.card-lab.acid{background:var(--acid-dim);color:#6b7a0f;padding:3px 8px;border-radius:3px}
+.card-lab.inv{background:var(--inv-bg);color:var(--inv-tx);padding:3px 8px;border-radius:3px}
+.card-lab.danger{background:rgba(239,68,68,.1);color:var(--danger);padding:3px 8px;border-radius:3px}
+.card-lab.blue{background:var(--blue-dim);color:var(--blue);padding:3px 8px;border-radius:3px}
+.card-lab.purple{background:var(--purple-dim);color:var(--purple);padding:3px 8px;border-radius:3px}
+.card-title{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
+.card-desc{font-size:13.5px;color:var(--tx70);line-height:1.65}
+.card-desc code{font-family:var(--mono);font-size:12px;background:var(--bg);padding:1px 5px;border-radius:3px;border:1px solid var(--bd);color:var(--tx)}
+
+.tdata{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);margin:14px 0}
+.tdata th{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--tx30);text-align:left;padding:14px 18px;background:var(--bg2);border-bottom:1px solid var(--bd)}
+.tdata td{padding:14px 18px;border-bottom:1px solid var(--bd);vertical-align:top;font-size:13.5px;color:var(--tx70);line-height:1.6}
+.tdata tr:last-child td{border-bottom:none}
+.tdata td code{font-family:var(--mono);font-size:12px;color:var(--tx);background:var(--bg);padding:2px 7px;border-radius:4px;border:1px solid var(--bd);white-space:nowrap}
+.tdata tr:hover td{background:var(--card-hover)}
+
+.timeline{position:relative;padding:0;margin-top:18px}
+.timeline::before{content:'';position:absolute;left:23px;top:28px;bottom:28px;width:1px;background:var(--bd)}
+.step{display:flex;gap:20px;position:relative;margin-bottom:10px}
+.step-dot{width:48px;min-width:48px;display:flex;flex-direction:column;align-items:center;padding-top:14px}
+.step-circle{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-family:var(--mono);font-weight:600;z-index:1;background:var(--bg);border:1px solid var(--bd)}
+.step-card{flex:1;background:var(--card);border:1px solid var(--bd);border-radius:var(--radius);padding:18px 22px;box-shadow:var(--shadow-sm);transition:all .25s var(--ease-out)}
+.step-card:hover{border-color:var(--bd-hover);transform:translateX(3px)}
+.step-title{font-size:14.5px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.step-desc{font-size:13px;color:var(--tx70);line-height:1.6}
+.step-desc code{font-family:var(--mono);font-size:11.5px;background:var(--bg);padding:2px 6px;border-radius:4px;border:1px solid var(--bd)}
+.step-tag{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:500;padding:3px 8px;margin-top:10px;text-transform:uppercase;letter-spacing:.1em;background:var(--acid-dim);color:#6b7a0f;border-radius:3px}
+.step-tag.inv{background:var(--inv-bg);color:var(--inv-tx)}
+
+.callout{background:var(--card);border:1px solid var(--bd);border-left:3px solid var(--acid);border-radius:var(--radius);padding:26px 30px;margin:28px 0;box-shadow:var(--shadow-sm)}
+.callout-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx30);margin-bottom:12px;display:block}
+.callout p{font-size:15px;color:var(--tx70);line-height:1.75;max-width:none}
+.callout p strong{color:var(--tx);font-weight:600}
+.callout-hl{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--tx);position:relative;display:inline-block}
+.callout-hl::after{content:'';position:absolute;bottom:1px;left:-3px;right:-3px;height:7px;background:var(--acid);opacity:.35;z-index:-1}
+
+.sign{display:flex;justify-content:space-between;align-items:center;padding:24px 0;margin-top:40px;border-top:1px solid var(--bd);flex-wrap:wrap;gap:12px}
+.sign-who{font-size:13px;color:var(--tx70)}
+.sign-who strong{color:var(--tx);font-weight:600}
+.sign-date{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx30)}
+
+.footer{text-align:center;padding:24px 0 40px;font-family:var(--mono);font-size:10px;color:var(--tx30);letter-spacing:.1em;text-transform:uppercase;border-top:1px solid var(--bd);margin-top:20px}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--bd);border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow-sm);margin:24px 0}
+@media(max-width:600px){.stats{grid-template-columns:1fr}}
+.stat-cell{text-align:center;padding:24px 16px;position:relative}
+.stat-cell+.stat-cell::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:1px;background:var(--bd)}
+@media(max-width:600px){.stat-cell+.stat-cell::before{display:none}}
+.stat-num{font-weight:700;font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;line-height:1;margin-bottom:6px}
+.stat-num .serif{font-family:var(--serif);font-style:italic;font-weight:400}
+.stat-lab{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx30)}
+
+.ts{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx30);margin-left:8px;font-weight:500}
+</style>
+</head>
+<body>
+<div class="w">
+
+<div class="hero">
+  <div class="hero-label">Compte rendu interne · Tom → Quentin · 8 mai 2026</div>
+  <h1>On crée un site simple pour <span class="serif">UBLOT</span>, où l'équipe garde la main sur son <span class="hl">contenu</span>.</h1>
+  <p class="hero-sub"><strong>UBLOT</strong> — futur lieu culturel à Bordeaux. Site sur mesure, mobile-first, avec un back-office maison qui rend l'équipe autonome sur l'agenda et les pages événementielles. Direction artistique épurée, ambiance par l'image et la vidéo, billetterie via Shotgun. <strong>Nathan livre un mockup architectural sous deux semaines</strong> — on se cale en réunion à ce moment-là pour finir de tout cadrer. Le graphisme suivra plus tard, le nom et la DA n'étant pas encore figés.</p>
+</div>
+
+<div class="meta-bar">
+  <div class="meta-item"><span class="meta-label">Auteur</span><span class="meta-value">Tom Grenié</span></div>
+  <div class="meta-item"><span class="meta-label">Destinataire</span><span class="meta-value">Quentin Pillet</span></div>
+  <div class="meta-item"><span class="meta-label">Projet</span><span class="meta-value">UBLOT — Bordeaux</span></div>
+  <div class="meta-item"><span class="meta-label">Interlocuteurs</span><span class="meta-value">Nathan · Alexis</span></div>
+  <div class="meta-item"><span class="meta-label">Statut</span><span class="meta-value">Mockup Nathan · S+2</span></div>
+  <div class="meta-item"><span class="meta-label">Temps de lecture</span><span class="meta-value">~6 min</span></div>
+</div>
+
+<div class="stats reveal">
+  <div class="stat-cell"><div class="stat-num"><span class="serif">8</span></div><div class="stat-lab">Références citées</div></div>
+  <div class="stat-cell"><div class="stat-num">5</div><div class="stat-lab">Sections en V1</div></div>
+  <div class="stat-cell"><div class="stat-num"><span class="serif">48h</span></div><div class="stat-lab">SLA modifications</div></div>
+</div>
+
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">01 · La vision</div>
+    <h2 class="section-title">Six <span class="serif">engagements</span> à défendre tout au long du projet</h2>
+    <p class="section-sub">Ce sont les promesses implicites du brief UBLOT. Toute décision design ou tech doit s'y rattacher — si une option vient les fragiliser, on la retoque.</p>
+  </div>
+
+  <div class="twocol">
+    <div class="card">
+      <div class="card-lab acid">Engagement</div>
+      <div class="card-title">Back-office accessible</div>
+      <div class="card-desc">UBLOT gère contenu et agenda sans nous appeler. C'est l'élément central du projet — plus que la couche graphique.</div>
+    </div>
+    <div class="card">
+      <div class="card-lab acid">Engagement</div>
+      <div class="card-title">Design simple, mobile-first</div>
+      <div class="card-desc">Visuels épurés, slider photo, carousel d'agenda. La DA ressort par les images, pas par la mise en page.</div>
+    </div>
+    <div class="card">
+      <div class="card-lab acid">Engagement</div>
+      <div class="card-title">Flexibilité &amp; évolutivité</div>
+      <div class="card-desc">Modifier le contenu sans coût additionnel. V1 simple en premier, V2 envisagée seulement après livraison.</div>
+    </div>
+    <div class="card">
+      <div class="card-lab acid">Engagement</div>
+      <div class="card-title">Navigation intuitive</div>
+      <div class="card-desc">Animations fluides, peu de clics, expérience satisfaisante même pour un visiteur novice.</div>
+    </div>
+    <div class="card">
+      <div class="card-lab acid">Engagement</div>
+      <div class="card-title">Billetterie intégrée</div>
+      <div class="card-desc">Shotgun via API pour une gestion simple et intégrée des ventes d'événements.</div>
+    </div>
+    <div class="card">
+      <div class="card-lab acid">Engagement</div>
+      <div class="card-title">Communication ciblée</div>
+      <div class="card-desc">Événements et infos pratiques mis en avant selon les publics cibles (concerts, clubbing, privatisation).</div>
+    </div>
+  </div>
+</div>
+
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">02 · Références</div>
+    <h2 class="section-title">Les huit <span class="serif">repères</span> cités en réunion</h2>
+    <p class="section-sub">Cinq sites pour l'inspiration design / navigation, deux outils pour l'intégration, un contre-exemple à éviter. À ouvrir avant de discuter du mockup architectural avec Nathan.</p>
+  </div>
+
+  <div class="twocol">
+
+    <div class="card">
+      <div class="card-lab acid">Inspiration</div>
+      <div class="card-title">Virage Paris</div>
+      <div class="card-desc">Lieu parisien — repère de l'écosystème concerts/clubbing, à étudier pour le ton et la structure d'agenda.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-lab acid">Inspiration</div>
+      <div class="card-title">Badaboum</div>
+      <div class="card-desc">Salle parisienne — point de comparaison pour la mise en avant des événements et la navigation entre programmation et infos pratiques.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-lab acid">Inspiration</div>
+      <div class="card-title">Mazette</div>
+      <div class="card-desc">Référence principale pour la simplicité visuelle : design épuré, peu de pages, mise en page blanche où l'image porte la DA.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-lab acid">Inspiration</div>
+      <div class="card-title">Petit Bain</div>
+      <div class="card-desc">Cité avec Mazette — séparation claire concerts / clubbing, lisibilité de l'agenda, sobriété générale du site.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-lab acid">Inspiration</div>
+      <div class="card-title">Le Sucre</div>
+      <div class="card-desc">Vidéos animées en arrière-plan sur l'accueil — ambiance immersive sans surcharger la page. Attention à l'adaptation mobile.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-lab blue">Outil</div>
+      <div class="card-title">Shotgun</div>
+      <div class="card-desc">Solution de billetterie retenue. Intégration via leur API, personnalisation de l'apparence directement sur le site — évite une billetterie maison.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-lab inv">Partenaire</div>
+      <div class="card-title">Studio bestiole</div>
+      <div class="card-desc">Studio graphique partenaire (Hugo &amp; Nathan). <strong>Nathan</strong>, graphiste / DA, livre les mockups architecturaux qui serviront de base au site et pilote la direction artistique avec le studio.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-lab danger">Contre-exemple</div>
+      <div class="card-title">9E page</div>
+      <div class="card-desc">Ancienne agence d'UBLOT : site bloqué côté contenu, modifications facturées <code>600€</code> pièce. Le projet existe précisément pour sortir de ce schéma.</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">03 · Stratégie produit</div>
+    <h2 class="section-title">Le back-office est l'<span class="serif">élément</span> central</h2>
+    <p class="section-sub">L'ambition produit ne se joue pas côté front — elle se joue côté admin. C'est ce qui va vraiment différencier ce projet des plateformes verrouillées par leur agence, plus que la couche graphique.</p>
+  </div>
+
+  <div class="body">
+    <p><strong>Back-office accessible<span class="ts">02:05</span></strong></p>
+    <ul>
+      <li>Système d'administration où UBLOT gère arborescence et contenu en temps réel.</li>
+      <li>Nathan aimerait pouvoir ajouter des landing pages festivals ou événements ponctuels — à challenger côté faisabilité technique de notre côté.</li>
+      <li>Ajouts gérés en interne — pas de budget agence pour chaque modification.</li>
+      <li>Impact attendu : réduction des coûts UBLOT, gain en réactivité sur la communication.</li>
+    </ul>
+
+    <p style="margin-top:18px"><strong>Simplicité visuelle &amp; structure<span class="ts">05:50</span></strong></p>
+    <ul>
+      <li>Mobile-first — page d'accueil avec slider/carousel photo + grille ou carousel d'agenda.</li>
+      <li>Séparation claire <strong>concerts</strong> et <strong>clubbing</strong> pour la lisibilité.</li>
+      <li>Billetterie via Shotgun — API utilisée pour personnaliser sans complexifier.</li>
+      <li>DA pilotée par <strong>Nathan</strong> et Studio bestiole — cohérence simple mais efficace.</li>
+    </ul>
+
+    <p style="margin-top:18px"><strong>Flexibilité &amp; évolutivité<span class="ts">23:17</span></strong></p>
+    <ul>
+      <li>UBLOT peut désactiver des pages temporaires (ex : dégustation éphémère) sans intervention lourde.</li>
+      <li>Modifications spécifiques traitées en <code>48h</code>, sans frais additionnels.</li>
+      <li>Équilibre autonomie UBLOT / support technique rapide, sans alourdir le budget.</li>
+      <li>V1 simple déployée vite ; V2 plus avancée envisagée plus tard.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">04 · Design &amp; UX</div>
+    <h2 class="section-title">Minimaliste mais <span class="serif">vivant</span></h2>
+    <p class="section-sub">L'identité du lieu doit passer par les images et les vidéos plutôt que par une mise en page chargée. Exigeant côté contenus, mais beaucoup plus pérenne côté code.</p>
+  </div>
+
+  <div class="body">
+    <p><strong>Design épuré, identité par l'image<span class="ts">07:30</span></strong></p>
+    <ul>
+      <li>Référence <strong>Le Sucre</strong> — vidéos animées en arrière-plan pour l'ambiance, sans complexité excessive.</li>
+      <li>Mise en page blanche, simple. La DA ressort par les images et le multimédia intégré.</li>
+      <li>Navigation intuitive : menu burger, accès rapide à l'agenda dès l'accueil.</li>
+      <li>Anti-pattern explicite : éviter les sites trop chargés qui «&nbsp;font mal au crâne&nbsp;».</li>
+    </ul>
+
+    <p style="margin-top:18px"><strong>Navigation fluide &amp; satisfaisante<span class="ts">21:05</span></strong></p>
+    <ul>
+      <li>Animations de déroulement et sliders intuitifs pour limiter les clics.</li>
+      <li>Découverte du contenu agréable, pour des visiteurs novices comme habitués.</li>
+      <li>Choix d'animations clés à valider une fois le mockup Nathan reçu.</li>
+    </ul>
+
+    <p style="margin-top:18px"><strong>Adaptation mobile / desktop<span class="ts">25:40</span></strong></p>
+    <ul>
+      <li>Détection automatique du device pour servir un contenu adapté (ex : vidéo d'accueil différente).</li>
+      <li>Évolution progressive — on cadre dès le mockup ce qu'on traite en V1 vs V2.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">05 · Tech &amp; intégrations</div>
+    <h2 class="section-title">Développement <span class="serif">maison</span>, contrôle total</h2>
+    <p class="section-sub">Pas de CMS du marché. Site sur mesure, hébergement géré chez nous — c'est la condition pour livrer un back-office vraiment adapté à l'usage UBLOT.</p>
+  </div>
+
+  <table class="tdata">
+    <thead><tr><th>Brique</th><th>Choix</th><th>Pourquoi</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Stack</strong></td>
+        <td>Next.js sur mesure, hébergement Bureau</td>
+        <td>Pas de <code>Wordpress / Elementor</code> — back-office piloté par nos contraintes, pas celles d'un CMS générique. <span class="ts">11:15</span></td>
+      </tr>
+      <tr>
+        <td><strong>Admin</strong></td>
+        <td>Drag &amp; drop, gestion multimédia native</td>
+        <td>UBLOT doit pouvoir créer et archiver des pages événementielles sans frottement. <span class="ts">26:32</span></td>
+      </tr>
+      <tr>
+        <td><strong>Billetterie</strong></td>
+        <td>Shotgun via API</td>
+        <td>Personnalisation de l'apparence en cohérence avec la DA, mise à jour simple. <span class="ts">04:15</span></td>
+      </tr>
+      <tr>
+        <td><strong>SEO &amp; analytics</strong></td>
+        <td>Phase 2</td>
+        <td>Pages cachées automatisées + dashboard clics/trafic — déployé après le lancement pour ne pas le retarder. <span class="ts">26:20</span></td>
+      </tr>
+      <tr>
+        <td><strong>Track record</strong></td>
+        <td>Cf. Two-Up / Score Queens / Palace Picks</td>
+        <td>Capacité à intégrer un design fourni — capacité éprouvée sur projets complexes. <span class="ts">13:20</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">06 · Planning</div>
+    <h2 class="section-title">Rythme calé sur le <span class="serif">mockup</span> Nathan</h2>
+    <p class="section-sub">Pas de big-bang, pas de précipitation côté design. Le calendrier court terme s'organise autour de la livraison du mockup architectural Nathan dans deux semaines, puis d'une réunion de cadrage final avec Nathan et Alexis.</p>
+  </div>
+
+  <div class="body">
+    <p><strong>Calendrier court terme</strong></p>
+    <ul>
+      <li><strong>Semaine du 18 mai (S+2)</strong> — Nathan revient avec un <strong>mockup architectural</strong> qui servira de base. Réunion à ce moment-là avec Nathan et Alexis pour finir de tout cadrer (fonctionnel, UX, tech).</li>
+      <li><strong>Suite (à dater)</strong> — Les éléments de graphisme arriveront <em>après</em> : ni le nom (UBLOT est de travail), ni la DA ne sont encore figés. Pas de pression sur la couche visuelle tant que ces décisions ne sont pas prises.</li>
+      <li><strong>Phase build</strong> — Démarrage dev une fois le cadrage validé post-mockup. V1 simple en cible, V2 envisagée seulement après livraison.</li>
+    </ul>
+
+    <p style="margin-top:18px"><strong>V1 — fonctionnalités essentielles<span class="ts">15:00</span></strong></p>
+    <ul>
+      <li>Agenda / programme (concerts + clubbing séparés).</li>
+      <li>Présentation du lieu.</li>
+      <li>Page contact.</li>
+      <li>Page privatisation avec brochure téléchargeable.</li>
+      <li>Billetterie Shotgun intégrée.</li>
+    </ul>
+
+    <p style="margin-top:18px"><strong>Collaboration Studio bestiole<span class="ts">06:00</span></strong></p>
+    <ul>
+      <li>Nathan livre les mockups architecturaux qui servent de base — DA pilotée par Nathan + Studio bestiole.</li>
+      <li>Approche hybride : simplicité de mise en page, richesse visuelle par l'image.</li>
+      <li>Côté Bureau : on intègre, on ne re-designe pas — la cohérence visuelle vient du studio.</li>
+    </ul>
+
+    <p style="margin-top:18px"><strong>Évolutions agiles<span class="ts">23:30</span></strong></p>
+    <ul>
+      <li>Modifications spécifiques traitées en <code>48h</code> sans surcoût — réactivité maintenue.</li>
+      <li>UBLOT garde la main sur la majorité des contenus via le back-office.</li>
+      <li>Équilibre autonomie UBLOT / support technique efficace.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">07 · Communication &amp; positionnement</div>
+    <h2 class="section-title">Le site comme <span class="serif">levier</span> de visibilité</h2>
+    <p class="section-sub">Plus qu'une vitrine — un outil opérationnel pour faire vivre les événements et générer du trafic organique sur la durée.</p>
+  </div>
+
+  <div class="body">
+    <p><strong>Priorisation par publics cibles<span class="ts">16:40</span></strong></p>
+    <ul>
+      <li>Organisation des contenus selon les publics — événements, privatisations, infos pratiques.</li>
+      <li>Agenda / programme = page centrale, séparation concerts vs clubbing.</li>
+      <li>Privatisation : mise en scène + brochure téléchargeable détaillée.</li>
+    </ul>
+
+    <p style="margin-top:18px"><strong>SEO long terme<span class="ts">26:00</span></strong></p>
+    <ul>
+      <li>Techniques SEO automatisées en phase 2 pour booster la visibilité Google.</li>
+      <li>Activité régulière liée aux événements = contenu renouvelé, bon pour le SEO.</li>
+    </ul>
+
+    <p style="margin-top:18px"><strong>Pragmatisme budgétaire<span class="ts">15:10</span></strong></p>
+    <ul>
+      <li>Projet abordable et efficace — V1 simple avant fonctionnalités avancées.</li>
+      <li>Éviter les dépenses superflues, tout en gardant une image professionnelle et attractive.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section reveal">
+  <div class="section-header">
+    <div class="section-label">08 · Action items</div>
+    <h2 class="section-title">Ce qui doit <span class="serif">avancer</span> maintenant</h2>
+    <p class="section-sub">Quatre chantiers côté Tom pour préparer la fenêtre Nathan, sept côté Bureau / dev pour démarrer une fois le mockup et le cadrage validés.</p>
+  </div>
+
+  <div class="section-label" style="margin-top:8px;margin-bottom:14px">Côté Tom</div>
+  <div class="timeline">
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">01</div></div>
+      <div class="step-card">
+        <div class="step-title">Brief technique pour Nathan</div>
+        <div class="step-desc">Cadrer par écrit les contraintes back-office, V1 et intégrations à transmettre à Nathan, pour que le mockup architectural arrive aligné.</div>
+        <span class="step-tag">D'ici S+2</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">02</div></div>
+      <div class="step-card">
+        <div class="step-title">Réunion cadrage final · S+2 <span class="ts">28:02</span></div>
+        <div class="step-desc">Avec Nathan et Alexis, semaine du 18 mai, après livraison du mockup architectural. Objectif : finaliser fonctionnel + UX + tech avant démarrage build.</div>
+        <span class="step-tag">Semaine du 18 mai</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">03</div></div>
+      <div class="step-card">
+        <div class="step-title">Vidéo &amp; animations adaptatives <span class="ts">23:17</span></div>
+        <div class="step-desc">Préciser les besoins en matière de vidéo et animation adaptatives mobile / desktop — à intégrer dans le brief Nathan.</div>
+        <span class="step-tag">Inclus brief</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">04</div></div>
+      <div class="step-card">
+        <div class="step-title">Priorisation des sections V1 <span class="ts">23:17</span></div>
+        <div class="step-desc">Évaluer et prioriser les sections à mettre en place en premier — agenda, privatisation, billetterie.</div>
+        <span class="step-tag">Inclus brief</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:32px;margin-bottom:14px">Côté Bureau / dev (post-cadrage)</div>
+  <div class="timeline">
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">05</div></div>
+      <div class="step-card">
+        <div class="step-title">Back-office user-friendly <span class="ts">03:47</span></div>
+        <div class="step-desc">Mettre en place un back-office simple permettant à UBLOT de gérer le contenu, créer et archiver des pages événementielles.</div>
+        <span class="step-tag inv">V1 critique</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">06</div></div>
+      <div class="step-card">
+        <div class="step-title">Intégration Shotgun via API <span class="ts">05:51</span></div>
+        <div class="step-desc">Billetterie Shotgun branchée via leur API avec personnalisation visuelle alignée sur la DA Nathan.</div>
+        <span class="step-tag inv">V1 critique</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">07</div></div>
+      <div class="step-card">
+        <div class="step-title">Hébergement &amp; maintenance <span class="ts">11:02</span></div>
+        <div class="step-desc">Assurer la gestion de l'hébergement et la maintenance du site — opéré entièrement chez Bureau.</div>
+        <span class="step-tag">Continu</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">08</div></div>
+      <div class="step-card">
+        <div class="step-title">SLA modifications <code>48h</code> <span class="ts">23:17</span></div>
+        <div class="step-desc">Garantir la réactivité de mise en ligne et de modification des pages en <code>48h max</code> sans coûts additionnels.</div>
+        <span class="step-tag">Promesse UBLOT</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">09</div></div>
+      <div class="step-card">
+        <div class="step-title">SEO automatisé <span class="ts">25:06</span></div>
+        <div class="step-desc">Travailler sur la partie SEO automatisée pour permettre au site de rester dynamique et visible.</div>
+        <span class="step-tag">Phase 2</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">10</div></div>
+      <div class="step-card">
+        <div class="step-title">Admin drag &amp; drop <span class="ts">26:32</span></div>
+        <div class="step-desc">Développer une interface admin intuitive avec drag &amp; drop et gestion aisée des contenus multimédias.</div>
+        <span class="step-tag inv">V1 critique</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-dot"><div class="step-circle">11</div></div>
+      <div class="step-card">
+        <div class="step-title">Brochure privatisation <span class="ts">28:02</span></div>
+        <div class="step-desc">Proposer une brochure téléchargeable attractive pour la page privatisation.</div>
+        <span class="step-tag">V1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="callout-tag">Prochaine étape concrète</span>
+    <p>Préparer un <strong>brief technique propre pour Nathan</strong> (back-office, V1, intégrations, contraintes) d'ici la fin de la semaine prochaine, pour que son mockup architectural arrive avec <span class="callout-hl">les bons garde-fous fonctionnels</span>. Ensuite : réunion de cadrage final avec Nathan et Alexis semaine du 18 mai. Tout le reste démarre après.</p>
+  </div>
+</div>
+
+<div class="sign">
+  <div class="sign-who">Compte rendu préparé par <strong>Tom Grenié</strong> pour <strong>Quentin Pillet</strong></div>
+  <div class="sign-date">UBLOT · 8 mai 2026</div>
+</div>
+
+<div class="footer">
+  Bureau · Compte rendu interne · Confidentiel
+</div>
+
+</div>
+
+<script>
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target);}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
